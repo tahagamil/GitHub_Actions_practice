@@ -32,7 +32,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: check all environments
         run: |
-          printenv $NAME
+          printenv ${{ secrets.NAME }}
 
       - uses: jfrog/setup-jfrog-cli@v3
       - run: jf --version
