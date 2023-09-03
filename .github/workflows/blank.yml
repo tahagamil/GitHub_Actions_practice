@@ -22,7 +22,8 @@ jobs:
     # The type of runner that the job will run on
     runs-on: [self-hosted, m2]
     env:
-      val1: override1
+      env:
+      NAME: ${{ secrets.NAME }}
       val2: override2
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -32,7 +33,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: check all environments
         run: |
-          printenv ${{ secrets.NAME }}
+          echo $NAME
 
       - uses: jfrog/setup-jfrog-cli@v3
       - run: jf --version
