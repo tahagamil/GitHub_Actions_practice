@@ -37,6 +37,7 @@ jobs:
       - uses: jfrog/setup-jfrog-cli@v3
       - run: jf --version
 
+      
   # This workflow contains a single job called "build"
   deply:
     # The type of runner that the job will run on
