@@ -1,5 +1,5 @@
 name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is testing out GitHub Actions
 on: [push]
 jobs:
   # clone-repo:
@@ -34,18 +34,33 @@ jobs:
         with:
           push: true
           tags: mohabrabie/node-app:latest
+      - run: echo $'\e[7mmohabrabie/node-app:latest\e[0m built and pushed 🚀'
 
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+  build-notifications:
+      needs: docker-build
+      runs-on: ubuntu-latest
+      steps:
+      - name: Send Push Notification
+        uses: techulus/push-github-action@1.0.0
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          MESSAGE: "a new image created named mohabrabie/node-app:latest and pushed succusfully to docker hub 🚀"
+
   docker-deploy:
-    needs: docker-build
+    needs: build-notifications
     runs-on: ubuntu-latest
     steps:
       - name: running a docker container
         run: docker run -dp 127.0.0.1:3000:3000 mohabrabie/node-app:latest
-        
-  testing-docker-container:
-    needs: docker-deploy
-    runs-on: ubuntu-latest
-    steps:
       - name: check the running container
         run: docker ps
+  
+  deploy-notifications:
+    needs: docker-build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send Push Notification
+      uses: techulus/push-github-action@1.0.0
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
+        MESSAGE: "a new container created from mohabrabie/node-app:latest image and pushed succusfully to docker hub"
