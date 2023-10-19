@@ -33,6 +33,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: node-app:latest
+          tags: mohabrabie/node-app:latest
 
       - run: echo "🍏 This job's status is ${{ job.status }}."
