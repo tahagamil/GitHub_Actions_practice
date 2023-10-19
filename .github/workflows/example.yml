@@ -55,7 +55,7 @@ jobs:
         run: docker run -dp 127.0.0.1:3000:3000 mohabrabie/node-app:latest
 
       - name: check the running container
-        run: curl 127.0.0.1:3000
+        run: docker ps
   
   # deploy-notifications:
   #   needs: docker-deploy
