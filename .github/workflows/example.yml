@@ -36,15 +36,15 @@ jobs:
           tags: mohabrabie/node-app:latest
       - run: echo $'\e[7mmohabrabie/node-app:latest\e[0m built and pushed 🚀'
 
-  # build-notifications:
-  #     needs: docker-build
-  #     runs-on: ubuntu-latest
-  #     steps:
-  #     - name: Send Push Notification
-  #       uses: techulus/push-github-action@1.0.0
-  #       env:
-  #         API_KEY: ${{ secrets.API_KEY }}
-  #         MESSAGE: "a new image created named mohabrabie/node-app:latest and pushed succusfully to docker hub 🚀"
+  build-notifications:
+      needs: docker-build
+      runs-on: ubuntu-latest
+      steps:
+      - name: Send Push Notification
+        uses: techulus/push-github-action@1.0.0
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          MESSAGE: "mohabrabie/node-app:latest created and pushed to docker hub 🚀"
 
   docker-deploy:
     # needs: build-notifications
@@ -57,12 +57,12 @@ jobs:
       - name: check the running container
         run: docker ps
   
-  # deploy-notifications:
-  #   needs: docker-deploy
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Send Push Notification
-  #     uses: techulus/push-github-action@1.0.0
-  #     env:
-  #       API_KEY: ${{ secrets.API_KEY }}
-  #       MESSAGE: "a new container created from mohabrabie/node-app:latest "
+  deploy-notifications:
+    needs: docker-deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send Push Notification
+      uses: techulus/push-github-action@1.0.0
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
+        MESSAGE: "mohabrabie/node-app:latest Deployed!"
