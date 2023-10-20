@@ -47,8 +47,7 @@ jobs:
           MESSAGE: "mohabrabie/node-app:latest created and pushed to docker hub 🚀"
 
   docker-deploy:
-    # needs: build-notifications
-    needs: docker-build
+    needs: build-notifications
     runs-on: ubuntu-latest
     steps:
       - name: running a docker container
