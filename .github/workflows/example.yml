@@ -13,7 +13,7 @@ jobs:
   #         ls ${{ github.workspace }}
   #     - run: echo "🍏 This job's status is ${{ job.status }}."
   docker-build:
-    runs-on: [mohab-virtual-machine]
+    runs-on: [self-hosted]
     permissions:
       contents: read
     steps:
